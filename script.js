@@ -134,8 +134,8 @@ function gameController() {
 
     function continueGameQuery() {
 
-        let continuePrompt = readlineSync.questionInt(`continue game? (y/n) \n`);
-        if (continuePrompt ==='y' || 'Y') {
+        let continuePrompt = readlineSync.question(`continue game? (y/n) \n`).toLowerCase();
+        if (continuePrompt === 'y') {
             startGame();
         } else {
             console.log('Thanks for playing!');
