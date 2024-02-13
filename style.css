@@ -78,13 +78,20 @@ input[type="text"] {
 
 .gameboard-container {
     display: flex;
+    flex: 1;
     padding: 10px;
     justify-content: center;
     align-items: center;
     
+
+   
+    
+    
 }
 
 .gameboard {
+    
+
     display: grid;
     background: lightgrey;
     grid-template-rows: repeat(3, clamp(25px, 33vw, 100px));
@@ -104,12 +111,6 @@ input[type="text"] {
 
 }
 
-.square {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
 
 .main-container {
     flex: 1;
@@ -117,6 +118,8 @@ input[type="text"] {
     align-items: center;
     min-height: 80vh;
 }
+
+
 
 .menu-container {
     flex: 1;
@@ -164,5 +167,14 @@ input[type="text"] {
     justify-content: center;
     align-items: center;
 }  
+
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    
+}
 
 

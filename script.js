@@ -1,8 +1,6 @@
 
 
-const readlineSync = require('readline-sync');
-
-
+/*
 function gameController() {
 
     function createPlayer(name, mark) {
@@ -156,3 +154,40 @@ function gameController() {
 }
 
 gameController();
+
+*/
+
+// FRONT END DISPLAY
+
+let roundCounter= document.querySelector('#round-counter');
+
+
+const startGame = document.querySelector('#start-game').addEventListener('click', function() {
+    
+    let player1Name = getValue('#player1-name');
+    let player1Mark = getValue('#player1-mark');
+    let player2Name = getValue('#player2-name');
+    let player2Mark = getValue('#player2-mark');
+    
+    let displayPlayer1Name = document.querySelector('#display-player1-name');
+    let displayPlayer2Name = document.querySelector('#display-player2-name');
+    let displayPlayer1Mark = document.querySelector('#display-player1-mark');
+    let displayPlayer2Mark = document.querySelector('#display-player2-mark');
+
+
+
+    displayPlayer1Name.textContent = player1Name;
+    displayPlayer2Name.textContent = player2Name;
+    displayPlayer1Mark.textContent = player1Mark;
+    displayPlayer2Mark.textContent = player2Mark;
+    roundCounter.textContent = 'Total Rounds: 0';
+});
+
+
+function getValue(selector) {
+    return document.querySelector(selector).value;
+
+}
+
+
+

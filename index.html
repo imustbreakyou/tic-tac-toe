@@ -15,18 +15,18 @@
     <div class="menu">
       <div class="menu-title">Game Setup</div>
       <div class="grid-item">
-        <input type="text" placeholder="Player 1 Name" />
+        <input type="text" id="player1-name" placeholder="Player 1 Name" />
       </div>
       <div class="grid-item">
-        <input type="text" placeholder="X" />
+        <input type="text"  id="player1-mark"placeholder="X" />
       </div>
       <div class="grid-item">
-        <input type="text" placeholder="Player 2 Name" />
+        <input type="text"  id="player2-name" placeholder="Player 2 Name" />
       </div>
       <div class="grid-item">
-        <input type="text" placeholder="O" />
+        <input type="text"  id="player2-mark" placeholder="O" />
       </div>
-      <div class="start-game-container">
+      <div class="start-game-container" >
         <button id="start-game">Start Game!</button>
       </div>
      
@@ -35,24 +35,24 @@
   </div>
   <div class="main-container">
     <div class="main-header">
-      <div class="display-header" id="game-counter">Total Games: 0</div>
+      <div class="display-header" id="round-counter">Total Rounds: </div>
       <div class="display-information">
         <div class="display-player">Player 1
-          <div id="player1-name">Rocky</div>
-          <div id="player1-mark">X</div>
-          <div id="player1-wins">1</div>
+          <div id="display-player1-name">Player 1</div>
+          <div id="display-player1-mark"> </div>
+          <div id="display-player1-wins">0</div>
         </div>
         <div class="display-player">Player 2
-          <div id="player2-name">Drago</div>
-          <div id="player2-mark">O</div>
-          <div id="player2-wins">0</div>
+          <div id="display-player2-name">Player 2</div>
+          <div id="display-player2-mark"> </div>
+          <div id="display-player2-wins">0</div>
         </div>
   
 
       </div>
     </div>
     
-    <div class="main-body">
+   
       <div class="gameboard-container">
         <div class="gameboard">
           <div class="square">1</div>
@@ -67,7 +67,7 @@
           
         </div>
       </div>
-    </div>
+    
 
 
 
