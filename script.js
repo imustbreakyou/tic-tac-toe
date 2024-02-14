@@ -38,6 +38,10 @@ function gameController() {
             element.textContent = '';
         });
         player1.isActive = true;
+        player2.isActive = false;
+
+
+        // move board reset in here.... 
         
     }
 
