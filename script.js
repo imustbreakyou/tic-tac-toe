@@ -33,7 +33,10 @@ function gameController() {
             winner: null,
             roundCounter: 0,
         };
-
+        square
+        document.querySelectorAll('.square').forEach((element) => {
+            element.textContent = '';
+        });
         player1.isActive = true;
         
     }
