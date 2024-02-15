@@ -6,7 +6,9 @@ function gameController() {
     let game;
     let player1;
     let player2;
-    let square;
+    let squares = [];
+    // immutable round counter increment;
+    createBoard();
 
 //  create player logic
     function createPlayer(name, mark) {
@@ -22,26 +24,19 @@ function gameController() {
     
 // game start logic
     function startGame() {
-        game = {
-            board: [
-                [' ', ' ', ' '],
-                [' ', ' ', ' '],
-                [' ', ' ', ' ']
-            ],
-            isOver: false,
-            isTie: false,
-            winner: null,
-            roundCounter: 0,
-        };
-        square
-        document.querySelectorAll('.square').forEach((element) => {
-            element.textContent = '';
-        });
+     
+        clearBoard();
+        
         player1.isActive = true;
         player2.isActive = false;
+        console.log(`Start Game game over status: ${game.isOver}`);
+        console.log(`Start Game array ${game.board}`);
+        console.log(`Start Game Round counter: ${game.roundCounter}`);
+        let displayPlayer1Wins = document.querySelector('#display-player1-wins');
+        let displayPlayer2Wins = document.querySelector('#display-player2-wins');
+        displayPlayer1Wins.textContent = `Wins: ${player1.wins}`;
+        displayPlayer2Wins.textContent = `Wins: ${player2.wins}`;
 
-
-        // move board reset in here.... 
         
     }
 
@@ -89,20 +84,18 @@ function gameController() {
     }
 
     function playRound(cell, player) {
-        displayBoard(game);
+   
+    
         placeMarks(cell, player);
-        game.roundCounter++;
-        checkGameStatus(game, player);
+        game.roundCounter += 1;
+        console.log(`Round counter: ${game.roundCounter}`);
+        setTimeout(() => {
+            checkGameStatus(game, player);
+        }, 500);
        
     }
 
-    function displayBoard(game) {
-        console.log('Current game board:');
-        game.board.forEach(row => {
-            console.log(row.join(' | '));
-            console.log('---------');
-        });
-    }
+
 
 
 
@@ -112,21 +105,28 @@ function gameController() {
 
         if (game.board[row][column] === ' ') {
             game.board[row][column] = player.mark;
-            console.log(`${player.market} Mark placed!\n`);
+            console.log(`${player.mark} Mark placed!\n`);
+            console.log(`array ${game.board}`);
         } else {
-            console.log("clicked on used cell");
+            console.log(`${player.name} clicked on used cell!`);
+            console.log(`array ${game.board}`);
          
         }
        ;
     }
 
-    function checkWin(game) {
+    function checkWin(game, player) {
         // check rows
         const size = 3;
+
+
+     
 
         for (let i = 0; i < size; i++) {
             if (game.board[i][0] === game.board[i][1] && game.board[i][0] === game.board[i][2]  && game.board[i][0] !== ' ') {
                 game.isOver = true;
+                player.wins++;
+                console.log(`${player.wins}`);
                 console.log(`game over! win on ${i} row!`);
                 
             }
@@ -138,6 +138,8 @@ function gameController() {
         for (let i = 0; i < size; i++) {
             if (game.board[0][i] === game.board[1][i] && game.board[0][i] === game.board[2][i] && game.board[0][i] !== ' ') {
                 game.isOver = true;
+                player.wins++;
+                console.log(`${player.wins}`);
                 console.log(`game over! win on ${i} column!`);
             }
         }
@@ -149,21 +151,35 @@ function gameController() {
         // upwards
             (game.board[1][1] === game.board[2][0] && game.board[1][1] === game.board[0][2] && game.board[1][1] !== ' ')) {
                 game.isOver = true;
+                player.wins++;
+                console.log(`${player.wins}`);
                 console.log(`game over! diagonal win!`);
         }
+
+
         
 
         
            
     }
+  /*
+    function displayPlayerWins(player1, player2) {
+
+
+
+    
+    }
+        */
+    
 
   
 
     function checkGameStatus(game, player) {
-        checkWin(game); // Check win conditions
+        checkWin(game, player); // Check win conditions
         // Update game status based on win or tie
         if (game.isOver) {
             console.log(`Game over! ${player.name} (${player.mark}) wins! \n`);
+         //   displayPlayerWins();
             continueGameQuery();
             
         } else if (game.roundCounter === 9) {
@@ -180,7 +196,7 @@ function gameController() {
 
         if (confirm('continue game? (y/n)')) {
             
-            console.log('Keep playing!');
+            console.log('Keep playing! \n');
             startGame();
           } else {
            
@@ -211,34 +227,64 @@ function gameController() {
                 }; 
             },
         };
+ 
     }
 
-    let squares = [];
 
-    document.querySelectorAll('.square').forEach((element, index) => {
-        square = createSquare(index, element);
-        square.addClickListener = function () {
-            this.element.addEventListener('click', () => {
-                let player = setCurrentPlayer();
-                this.setValue(player.mark);
-                let cell = this.id
-                playRound(cell, player);
-                switchPlayers(player);
-            });
+    function createBoard () {       0000
+
+        game = {
+            board: [
+                [' ', ' ', ' '],
+                [' ', ' ', ' '],
+                [' ', ' ', ' ']
+            ],
+            isOver: false,
+            isTie: false,
+            winner: null,
+            roundCounter: 0,
         };
-        square.addClickListener();
-        squares[index] = square;
+ 
+    
+        document.querySelectorAll('.square').forEach((element, index) => {
+            let square = createSquare(index, element);
+            square.element.addEventListener('click', () => handleSquareClick(index));
+            squares.push(square);
+        });
+    }
 
-    });
+    function handleSquareClick(index) {
+        let player = setCurrentPlayer();
+        let square = squares[index]
+        if (game.isOver || square.mark) {
+            return;
+        }
+        square.setValue(player.mark);
+        playRound(index, player);
+        switchPlayers();
+    } 
 
+    function clearBoard() {
+        squares.forEach(square => {
+            square.mark = null;
+            square.element.textContent = '';
 
+        });
 
+        game.board = [
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
+        ];
+        game.isOver = false;
+        game.isTie = false;
+        game.roundCounter = 0;
 
-
-
-
-
+  
 }
+      
+}
+
 
 gameController();
 
