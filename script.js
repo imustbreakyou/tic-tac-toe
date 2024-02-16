@@ -178,31 +178,47 @@ function gameController() {
         checkWin(game, player); // Check win conditions
         // Update game status based on win or tie
         if (game.isOver) {
-            console.log(`Game over! ${player.name} (${player.mark}) wins! \n`);
+            console.log(`${player.name} (${player.mark}) wins! \n Game Over \n`);
          //   displayPlayerWins();
-            continueGameQuery();
+            continueGameQuery(game, player);
             
         } else if (game.roundCounter === 9) {
             game.isOver = true;
+            game.isTie = true;
             console.log(`Game over!... Tie!`);
-            continueGameQuery();
+            continueGameQuery(game, player);
 
 
          
         };
     }
 
-    function continueGameQuery() {
-
-        if (confirm('continue game? (y/n)')) {
+    function continueGameQuery(game, player) {
+        if (game.isTie) {
+            if (confirm('A Tie!? Continue Playing? (y/n)')) {
             
-            console.log('Keep playing! \n');
-            startGame();
-          } else {
-           
-            console.log('Thanks for playing!');
-            return;
-          }
+                console.log('Keep playing! \n');
+                startGame();
+              } else {
+               
+                console.log('Thanks for playing!');
+                return;
+              }
+            
+        } else {
+
+            if (confirm(`Player: ${player.name} wins! continue playing? (y/n)`)) {
+            
+                console.log('Keep playing! \n');
+                startGame();
+              } else {
+               
+                console.log('Thanks for playing!');
+                return;
+              }
+        }
+
+       
     }
 
 
@@ -231,7 +247,7 @@ function gameController() {
     }
 
 
-    function createBoard () {       0000
+    function createBoard () {       
 
         game = {
             board: [
@@ -282,8 +298,56 @@ function gameController() {
 
   
 }
-      
+function resetPlayer(player) {
+    player.name = "";
+    player.mark = null;
+    player.wins = 0;
+    player.isActive = false;
 }
+
+function resetGame(player1, player2) {
+    resetPlayer(player1);
+    resetPlayer(player2);
+    clearBoard();
+
+    const displayPlayer1Name = document.getElementById('display-player1-name');
+    const displayPlayer2Name = document.getElementById('display-player2-name');
+    const displayPlayer1Mark = document.getElementById('display-player1-mark');
+    const displayPlayer2Mark = document.getElementById('display-player2-mark');
+    
+    let player1Name = document.getElementById('player1-name');
+    let player1Mark = document.getElementById('player1-mark');
+    let player2Name = document.getElementById('player2-name');
+    let player2Mark = document.getElementById('player2-mark');
+
+
+    player1Name.value = "";
+    player2Name.value = "";
+    player1Mark.value = "";
+    player2Mark.value = "";
+
+    displayPlayer1Name.textContent = "";
+    displayPlayer2Name.textContent = "";
+    displayPlayer1Mark.textContent = "";
+    displayPlayer2Mark.textContent = "";
+
+   
+
+}
+
+
+let reset = document.querySelector('#reset-game');
+reset.addEventListener('click', function()  {
+    console.log('game reset!');
+    
+    resetGame(player1, player2);
+});
+
+
+
+};
+      
+
 
 
 gameController();
