@@ -3,11 +3,34 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
+    color: #333; /* dark gray color for better readability */
+    background-color: #f9f9f9; /* light background */
 }
 
 input {
     border: none;
 }
+
+button {
+    background-color: #fff; /* or any color that fits your design */
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:active {
+    transform: scale(0.98); /* Slight push effect */
+  }
+
+#game-setup {
+    margin: auto;
+    padding: 20px;
+    max-width: 300px; /* Adjust width as needed */
+  }
+  
+  #game-board {
+    margin: auto;
+  }
 
 
 .container {
